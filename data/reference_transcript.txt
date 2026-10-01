@@ -1,0 +1,4 @@
+# Exact words spoken in download/reference.wav (or referrence.m4a).
+# One line or paragraph — must match the reference clip for F5-TTS.
+# Example: replace below with what you actually recorded.
+Isi transkrip suara rujukan kau di sini, sama seperti dalam rakaman.

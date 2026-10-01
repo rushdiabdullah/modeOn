@@ -1,0 +1,6 @@
+# F5-TTS engine compare (separate venv recommended: python -m venv .venv-f5)
+# Use same torch pin as XTTS stack on RunPod.
+torch==2.5.1
+torchaudio==2.5.1
+f5-tts
+soundfile

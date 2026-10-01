@@ -31,6 +31,8 @@ curl -sS -X POST http://localhost:8000/v1/tts \
 
 Follow **[docs/week1-runbook.md](./docs/week1-runbook.md)** — bootstrap pod, generate 10 BM samples, go/no-go.
 
+**Engine A/B:** **[docs/engine-compare.md](./docs/engine-compare.md)** — XTTS vs **F5-TTS** (`scripts/week1_validate_f5.py`).
+
 ## RunPod (API)
 
 1. Set `MODEON_TTS_MODE=xtts` and install GPU deps (see [docs/runpod-setup.md](./docs/runpod-setup.md)).
