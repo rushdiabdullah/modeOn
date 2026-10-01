@@ -1,0 +1,4 @@
+# Install on RunPod after requirements.txt (PyTorch template may already include torch).
+TTS==0.22.0
+torch
+torchaudio

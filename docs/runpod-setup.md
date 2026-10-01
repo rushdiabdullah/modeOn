@@ -10,12 +10,12 @@
 
 ```bash
 cd /runpod-volume
-git clone <your-repo-url> modeOn
+git clone https://github.com/rushdiabdullah/modeOn.git modeOn
 cd modeOn
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
-pip install TTS==0.22.0 torch torchaudio
+pip install -r requirements.txt -r requirements-gpu.txt
+# Or: ./scripts/runpod_bootstrap.sh
 cp .env.example .env
 ```
 
@@ -32,16 +32,16 @@ Place a clean **6–30 s** (or longer) reference WAV at that path.
 
 ## 3. Validate (Week 1)
 
+Full steps: **[week1-runbook.md](./week1-runbook.md)**
+
 ```bash
-# Coqui CLI smoke test (adjust paths)
-tts --text "Selamat pagi." \
-  --model_name tts_models/multilingual/multi-dataset/xtts_v2 \
-  --speaker_wav /runpod-volume/voices/default/reference.wav \
-  --language_idx ms \
-  --out_path /runpod-volume/samples/test.wav
+python scripts/week1_validate.py \
+  --speaker-wav /runpod-volume/voices/default/reference.wav \
+  --limit 10 \
+  --output-dir /runpod-volume/samples/week1
 ```
 
-Generate samples from `tests/sentences_ms.txt` and log results in `docs/validation-week1.md`.
+Log listening scores in `docs/validation-week1.md` (use `samples/week1/scoring-template.md`).
 
 ## 4. Run API
 

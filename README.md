@@ -27,7 +27,11 @@ curl -sS -X POST http://localhost:8000/v1/tts \
   --output out.wav
 ```
 
-## RunPod
+## Week 1 (RunPod validation)
+
+Follow **[docs/week1-runbook.md](./docs/week1-runbook.md)** — bootstrap pod, generate 10 BM samples, go/no-go.
+
+## RunPod (API)
 
 1. Set `MODEON_TTS_MODE=xtts` and install GPU deps (see [docs/runpod-setup.md](./docs/runpod-setup.md)).
 2. Mount network volume; point `DEFAULT_SPEAKER_WAV` at your reference clip.
