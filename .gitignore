@@ -11,6 +11,8 @@ dist/
 build/
 
 data/recordings/
+download/
+/modeOn/
 samples/*
 !samples/.gitkeep
 *.wav

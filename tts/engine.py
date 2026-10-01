@@ -85,6 +85,9 @@ class XTTSEngine(TTSEngine):
         import tempfile
 
         speaker_wav = self._resolve_speaker_wav(speaker_id)
+        lang = language.strip().lower()
+        if lang in ("ms", "bm", "ms-my", "malay"):
+            lang = "en"
         fd, out_path = tempfile.mkstemp(suffix=".wav")
         os.close(fd)
         out = Path(out_path)
@@ -93,7 +96,7 @@ class XTTSEngine(TTSEngine):
                 text=text,
                 file_path=str(out),
                 speaker_wav=speaker_wav,
-                language=language,
+                language=lang,
                 speed=speed,
             )
             return out.read_bytes()

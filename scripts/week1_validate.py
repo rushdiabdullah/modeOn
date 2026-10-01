@@ -25,6 +25,14 @@ def word_count(text: str) -> int:
     return len(text.split())
 
 
+def xtts_language(code: str) -> str:
+    """XTTS v2 has no `ms`; BM sentences use `en` + Malay reference voice."""
+    normalized = code.strip().lower()
+    if normalized in ("ms", "bm", "ms-my", "malay"):
+        return "en"
+    return normalized
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Generate Week 1 XTTS validation samples")
     parser.add_argument(
@@ -35,7 +43,11 @@ def main() -> int:
     parser.add_argument("--sentences", type=Path, default=Path("tests/sentences_ms.txt"))
     parser.add_argument("--limit", type=int, default=10, help="Number of sentences (default 10)")
     parser.add_argument("--output-dir", type=Path, default=Path("samples/week1"))
-    parser.add_argument("--language", default="ms")
+    parser.add_argument(
+        "--language",
+        default="en",
+        help="XTTS language code (use en for BM text; ms is mapped to en automatically)",
+    )
     parser.add_argument("--device", default="cuda")
     parser.add_argument(
         "--model",
@@ -66,6 +78,9 @@ def main() -> int:
         return 1
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
+    lang = xtts_language(args.language)
+    if lang != args.language.strip().lower():
+        print(f"==> language {args.language!r} -> XTTS uses {lang!r} (BM text + reference voice)")
 
     print(f"==> loading model {args.model} on {args.device} ...")
     t0 = time.perf_counter()
@@ -80,7 +95,7 @@ def main() -> int:
         text=warmup,
         file_path=str(warm_path),
         speaker_wav=str(speaker),
-        language=args.language,
+        language=lang,
     )
 
     rows: list[dict] = []
@@ -91,7 +106,7 @@ def main() -> int:
             text=text,
             file_path=str(out),
             speaker_wav=str(speaker),
-            language=args.language,
+            language=lang,
         )
         elapsed = time.perf_counter() - start
         wc = word_count(text)
@@ -115,7 +130,8 @@ def main() -> int:
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "model": args.model,
         "device": args.device,
-        "language": args.language,
+        "language": lang,
+        "language_requested": args.language,
         "speaker_wav": str(speaker),
         "model_load_s": round(load_s, 2),
         "samples": rows,

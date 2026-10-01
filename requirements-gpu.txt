@@ -1,4 +1,6 @@
-# Install on RunPod after requirements.txt (PyTorch template may already include torch).
+# Install on RunPod after requirements.txt.
+# Pin torch<2.6: PyTorch 2.6 defaults weights_only=True and breaks XTTS checkpoint load.
 TTS==0.22.0
-torch
-torchaudio
+transformers==4.33.3
+torch==2.5.1
+torchaudio==2.5.1

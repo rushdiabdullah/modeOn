@@ -1,38 +1,20 @@
 # Week 1 validation
 
-Copy scores from `samples/week1/scoring-template.md` after listening, or fill here.
+**Date:** 2026-10-01  
+**Pod:** modeon-week1 (RTX 3090, Community)  
+**Reference:** ~10 s WAV from `download/referrence.m4a`  
+**Stack:** TTS 0.22.0, torch 2.5.1, transformers 4.33.3, language `en` for BM text  
 
-**Pod GPU:** __________  
-**Date:** __________  
-**Reference WAV:** __________  
+**Latency (manifest on pod):** mean ~4.2 s, p95 ~6.9 s  
 
-**pip versions (TTS / torch / torchaudio):**
+## Listening result
 
-```
-(paste from pip freeze)
-```
+| # | Clarity 1–5 | BM 1–5 | Natural 1–5 | Notes |
+|---|-------------|--------|-------------|-------|
+| 1–10 | ~2–3 | ~2 | ~2 | English slang prosody, robotic; zero-shot + `en` lang |
 
-**Latency (from manifest.json summary):**
+**Averages (subjective):** Clarity ~2.5 | BM ~2 | Natural ~2  
 
-- mean: __________ s  
-- p95: __________ s  
-- ~30-word ref: __________ s  
+**Go/no-go:** **NO-GO** for product voice — **GO** for pipeline (model runs, 10 WAVs generated).  
 
-| # | Sentence (excerpt) | Clarity 1–5 | BM 1–5 | Natural 1–5 | Notes |
-|---|-------------------|-------------|--------|-------------|-------|
-| 1 | | | | | |
-| 2 | | | | | |
-| 3 | | | | | |
-| 4 | | | | | |
-| 5 | | | | | |
-| 6 | | | | | |
-| 7 | | | | | |
-| 8 | | | | | |
-| 9 | | | | | |
-| 10 | | | | | |
-
-**Averages:** Clarity __ | BM __ | Natural __  
-
-**Go/no-go:** GO / NO-GO — reason: __________  
-
-**Next action:** __________  
+**Next action:** Fine-tune / more reference data / engine compare before Week 2 client demo.  
