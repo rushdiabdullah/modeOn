@@ -4,6 +4,9 @@
 
 **Time on GPU:** ~1–2 hours (install + first model download + 10 samples). **Stop the pod** when done.
 
+> **Important:** Run bootstrap and `week1_validate.py` in the **RunPod pod terminal** (browser Web Terminal or SSH).  
+> **Not** in Terminal.app on your Mac — `/runpod-volume` does not exist on macOS.
+
 ---
 
 ## Step 1 — RunPod console
@@ -41,21 +44,32 @@ Or use RunPod file browser / Jupyter upload to `/runpod-volume/voices/default/re
 
 ## Step 3 — Bootstrap project on the pod
 
-In the pod terminal:
+In the **pod** terminal, find where data lives:
 
 ```bash
-export RUNPOD_VOLUME=/runpod-volume
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/rushdiabdullah/modeOn/main/scripts/runpod_bootstrap.sh)"
+ls -d /runpod-volume /workspace 2>/dev/null
 ```
 
-If raw GitHub is blocked, clone manually:
+Use whichever exists (network volume → usually `/runpod-volume`; else `/workspace`):
 
 ```bash
-cd /runpod-volume
+export RUNPOD_VOLUME=/runpod-volume   # or /workspace
+cd "${RUNPOD_VOLUME}"
 git clone https://github.com/rushdiabdullah/modeOn.git
 cd modeOn
+git pull origin main
 chmod +x scripts/runpod_bootstrap.sh
 ./scripts/runpod_bootstrap.sh
+```
+
+Then:
+
+```bash
+source .venv/bin/activate
+python3 scripts/week1_validate.py \
+  --speaker-wav "${RUNPOD_VOLUME}/voices/default/reference.wav" \
+  --limit 10 \
+  --output-dir "${RUNPOD_VOLUME}/samples/week1"
 ```
 
 Edit env (optional for Week 1 script; needed later for API):
